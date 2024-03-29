@@ -38,6 +38,20 @@ function playRound(playerSelection, computerSelection) {
     return res;
 }
 
-const playerSelection = "rock";
-const computerSelection = getComputerChoice();
-console.log(playRound(playerSelection, computerSelection));
+function playGame() {
+    let playerWins = 0;
+    let computerWins = 0;
+    for (let i = 0; i < 5; i++) {
+        const playerSelection = prompt('Enter rock, paper, or scissors');
+        const computerSelection = getComputerChoice();
+        const result = playRound(playerSelection, computerSelection);
+        console.log(result);
+        if (result.includes('win')) {
+            playerWins++;
+        } else if (result.includes('lose')) {
+            computerWins++;
+        }
+    }
+}
+
+playGame();
