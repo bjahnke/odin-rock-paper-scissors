@@ -38,6 +38,9 @@ function playRound(playerSelection, computerSelection) {
     return res;
 }
 
+/**
+ * Plays a 5 round game of Rock Paper Scissors
+ */
 function playGame() {
     let playerWins = 0;
     let computerWins = 0;
@@ -54,4 +57,56 @@ function playGame() {
     }
 }
 
-playGame();
+const rockBtn = document.createElement('button');
+const paperBtn = document.createElement('button');
+const scissorsBtn = document.createElement('button');
+const resultDiv = document.createElement('div');
+const scoreBoard = document.createElement('div');
+
+
+rockBtn.textContent = "rock";
+paperBtn.textContent = "paper";
+scissorsBtn.textContent = "scissors";
+
+let playerWins = 0;
+let computerWins = 0;
+
+function declareWinner(pWinCount, cWinCount, winningPoints) {
+    let res = "";
+    if (pWinCount >= winningPoints) {
+        res = " *Player has won the match!* ";
+    } else if (cWinCount >= winningPoints) {
+        res = " *Computer has won the match!* ";
+    }
+    return res;
+}
+
+function gameCaller (e) {
+    if (scoreBoard.textContent.includes('won')) {
+        playerWins = 0;
+        computerWins = 0;
+    }
+
+    result = playRound(e.target.textContent, getComputerChoice());
+    resultDiv.textContent = result;
+    if (result.includes('win')) {
+        playerWins++;
+    } else if (result.includes('lose')) {
+        computerWins++;
+    }
+    const declaredWinner = declareWinner(playerWins, computerWins, 5);
+    scoreBoard.textContent = (
+        `Player Wins: ${playerWins}, Computer Wins: ${computerWins}` + declaredWinner
+    )
+}
+
+rockBtn.addEventListener('click', gameCaller);
+paperBtn.addEventListener('click', gameCaller);
+scissorsBtn.addEventListener('click', gameCaller);
+
+
+
+const body = document.querySelector('body');
+body.append(rockBtn, paperBtn, scissorsBtn, resultDiv, scoreBoard);
+
+
